@@ -21,11 +21,11 @@ public class ReviewManager {
     public static final String      CREATE_TABLE_REVIEW = "CREATE TABLE "+TABLE_NAME+
             " (" +
             " "+KEY_ID_REVIEW+" INTEGER primary key," +
-            " "+KEY_TITLE_REVIEW+" TEXT" +
-            " "+KEY_DATE_REVIEW+" TEXT" +
-            " "+KEY_SCORE_SCENARIO_REVIEW+" INTEGER" +
-            " "+KEY_SCORE_PRODUCTION_REVIEW+" INTEGER" +
-            " "+KEY_SCORE_MUSIC_REVIEW+" INTEGER" +
+            " "+KEY_TITLE_REVIEW+" TEXT," +
+            " "+KEY_DATE_REVIEW+" TEXT," +
+            " "+KEY_SCORE_SCENARIO_REVIEW+" INTEGER," +
+            " "+KEY_SCORE_PRODUCTION_REVIEW+" INTEGER," +
+            " "+KEY_SCORE_MUSIC_REVIEW+" INTEGER," +
             " "+KEY_COMMENTARY_REVIEW+" TEXT" +
             ");";
     private MySQLite mSQLite;
@@ -54,6 +54,7 @@ public class ReviewManager {
         values.put(KEY_SCORE_SCENARIO_REVIEW, review.getScoreScenario());
         values.put(KEY_SCORE_PRODUCTION_REVIEW, review.getScoreProduction());
         values.put(KEY_SCORE_MUSIC_REVIEW, review.getScoreMusic());
+        values.put(KEY_COMMENTARY_REVIEW, review.getCommentary());
 
         // Return an ID, if it's incorrect return -1
         return db.insert(TABLE_NAME,null,values);
@@ -66,6 +67,7 @@ public class ReviewManager {
         values.put(KEY_SCORE_SCENARIO_REVIEW, review.getScoreScenario());
         values.put(KEY_SCORE_PRODUCTION_REVIEW, review.getScoreProduction());
         values.put(KEY_SCORE_MUSIC_REVIEW, review.getScoreMusic());
+        values.put(KEY_COMMENTARY_REVIEW, review.getCommentary());
 
         String where = KEY_ID_REVIEW+" = ?";
         String[] whereArgs = {review.getIdReview()+""};

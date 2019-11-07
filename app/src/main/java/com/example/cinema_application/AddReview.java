@@ -2,14 +2,20 @@ package com.example.cinema_application;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
+
+import com.example.cinema_application.database.ReviewManager;
+import com.example.cinema_application.model.Review;
+
 import java.util.Calendar;
 
 public class AddReview extends AppCompatActivity implements View.OnClickListener {
@@ -76,7 +82,24 @@ public class AddReview extends AppCompatActivity implements View.OnClickListener
             timePickerDialog.show();
         }
         if(v == btnReviewSend) {
-            System.out.println(reviewTitle.getText().toString());
+            ReviewManager review = new ReviewManager(this);
+            review.open();
+            try {
+                review.addReview(new Review(
+                       0,
+                        reviewTitle.getText().toString(),
+                        txtDate.getText().toString() + " " + txtTime.getText().toString(),
+                        Integer.parseInt(mScoreScenario.getText().toString()),
+                        Integer.parseInt(mScoreProduction.getText().toString()),
+                        Integer.parseInt(mScoreMusic.getText().toString()),
+                        mCommentary.getText().toString())
+                );
+
+                review.close();
+                AddReview.this.finish();
+            } catch (Exception error) {
+                Log.d("error : " , error.toString());
+            }
         }
     }
 }
